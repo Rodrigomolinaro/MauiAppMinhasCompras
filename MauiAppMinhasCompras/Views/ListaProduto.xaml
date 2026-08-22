@@ -35,7 +35,7 @@
                             <Label Grid.Column="0" Text="{Binding Id}" />
                             <Label Grid.Column="1" Text="{Binding Descricao}" />
                             <Label Grid.Column="2" Text="{Binding Preco}" />
-                            <Label Grid.Column="3" Text="{Binding Qnt}" />
+                            <Label Grid.Column="3" Text="{Binding Quantidade}" />
                             <Label Grid.Column="4" Text="{Binding Total}" />
                         </Grid>
                     </ViewCell>

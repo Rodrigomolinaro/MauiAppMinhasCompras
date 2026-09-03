@@ -14,7 +14,7 @@
                    Placeholder="Busca de Produtos"
                    TextChanged="txt_search_TextChanged"/>
 
-        <ListView x:Name="lst_produtos">
+        <ListView x:Name="lst_produtos" ItemSelected="lst_produtos_ItemSelected" >
             <ListView.Header>
                 <Grid ColumnDefinitions="*,*,*,*,*">
                     <Label Grid.Column="0" Text="Id" />
@@ -29,7 +29,7 @@
                 <DataTemplate>
                     <ViewCell>
                         <ViewCell.ContextActions>
-                            <MenuItem Text="Remover" Clicked="MenuItem_Clicked"/>
+                            <MenuItem Text="Remove" Clicked="MenuItem_Clicked"/>
                         </ViewCell.ContextActions>
                         <Grid ColumnDefinitions="*,*,*,*,*">
                             <Label Grid.Column="0" Text="{Binding Id}" />

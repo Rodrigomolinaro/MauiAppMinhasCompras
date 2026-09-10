@@ -7,35 +7,35 @@ namespace MauiAppMinhasCompras.Views;
 public partial class ListaProduto : ContentPage
 {
 	ObservableCollection<Produto> lista = new ObservableCollection<Produto>();
-    public ListaProduto()
+	public ListaProduto()
 	{
 		InitializeComponent();
 
 		lst_produtos.ItemsSource = lista;
-    }
+	}
 
-    protected async override void OnAppearing()
-    {
+	protected async override void OnAppearing()
+	{
 		try
 		{
 			lista.Clear();
-			
+
 			List<Produto> tmp = await App.Db.GetAll();
 
 			tmp.ForEach(i => lista.Add(i));
-		} 
-		catch (Exception ex) 
+		}
+		catch (Exception ex)
 		{
 			await DisplayAlertAsync("Ops", ex.Message, "OK");
 		}
-    }
+	}
 
 	private async void ToolbarItem_Clicked(object sender, EventArgs e)
 	{
 		try
 		{
 			await Navigation.PushAsync(new Views.NovoProduto());
-		} 
+		}
 		catch (Exception ex)
 		{
 			await DisplayAlertAsync("Ops", ex.Message, "OK");
@@ -58,7 +58,7 @@ public partial class ListaProduto : ContentPage
 		{
 			await DisplayAlertAsync("Ops", ex.Message, "OK");
 		}
-    }
+	}
 
 	private async void ToolbarItem_Clicked_1(object sender, EventArgs e)
 	{
@@ -70,7 +70,7 @@ public partial class ListaProduto : ContentPage
 	}
 
 	private async void MenuItem_Clicked(object sender, EventArgs e)
-    {
+	{
 		try
 		{
 			MenuItem selecionado = sender as MenuItem;
@@ -80,7 +80,7 @@ public partial class ListaProduto : ContentPage
 			bool confirm = await DisplayAlertAsync(
 				"Tem Certeza?", $"Remover {p.Descricao}?", "Sim", "Não");
 
-			if (confirm) 
+			if (confirm)
 			{
 				await App.Db.Delete(p.Id);
 				lista.Remove(p);
@@ -90,24 +90,49 @@ public partial class ListaProduto : ContentPage
 		{
 			await DisplayAlertAsync("Ops", ex.Message, "OK");
 		}
-    }
+	}
 
-    private void lst_produtos_ItemSelected(object sender, SelectedItemChangedEventArgs e)
-    {
+	private async void lst_produtos_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+	{
 		try
 		{
-			Produto p = e.SelectedItem as Produto;
+			var selecionado = e.SelectedItem as Produto;
+			if (selecionado == null)
+				return;
 
-			Navigation.PushAsync(new Views.EditarProduto
-			{
-				BindingContext = p,
-			});
+			// Exemplo: navegar para detalhes ou outro comportamento
+			await Navigation.PushAsync(new Views.NovoProduto(/* opcional: enviar selecionado */));
 		}
-
-
 		catch (Exception ex)
 		{
-			DisplayAlert("Ops", ex.Message, "OK");
+			await DisplayAlertAsync("Ops", ex.Message, "OK");
 		}
-    }
+		finally
+		{
+			// limpar seleção se usar ListView
+			lst_produtos.SelectedItem = null;
+		}
+	}
+
+	private async void lst_produtos_Refreshing(object sender, EventArgs e)
+	{
+		try
+		{
+			lst_produtos.IsRefreshing = true;
+
+			lista.Clear();
+
+			List<Produto> tmp = await App.Db.GetAll();
+
+			tmp.ForEach(i => lista.Add(i));
+		}
+		catch (Exception ex)
+		{
+			await DisplayAlertAsync("Ops", ex.Message, "OK");
+		}
+		finally
+		{
+			lst_produtos.IsRefreshing = false;
+		}
+	}
 }

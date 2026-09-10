@@ -52,13 +52,6 @@ public partial class ListaProduto : ContentPage
 
 			List<Produto> tmp = await App.Db.Search(q);
 
-			tmp.ForEach(i => lista.Add(i));
-		}
-		catch (Exception ex)
-		{
-			await DisplayAlertAsync("Ops", ex.Message, "OK");
-		}
-	}
 
 	private async void ToolbarItem_Clicked_1(object sender, EventArgs e)
 	{

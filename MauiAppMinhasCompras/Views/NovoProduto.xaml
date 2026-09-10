@@ -19,6 +19,9 @@
         <Label Text="Preço Unitário:" />
         <Entry x:Name="txt_preco" Keyboard="Numeric" />
 
+        <Label Text="Data da Compra" FontAttributes="Bold" Margin="0,10,0,0"/>
+        <DatePicker x:Name="dtpDataCompra" Format="dd/MM/yyyy" />
+
         <Picker x:Name="pckCategoria" Title="Selecione a Categoria" Margin="0,10,0,0">
             <Picker.ItemsSource>
                 <x:Array Type="{x:Type x:String}">

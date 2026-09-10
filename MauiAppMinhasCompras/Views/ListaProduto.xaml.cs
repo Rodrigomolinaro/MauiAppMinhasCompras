@@ -120,4 +120,8 @@ public partial class ListaProduto : ContentPage
 		var total = todosProdutos.Sum(p => p.Preco * p.Quantidade);
 		await DisplayAlert("Total", $"Total gasto: R$ {total:F2}", "OK");
 	}
+    private async void ToolbarItem_Relatorio_Clicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new Relatorio());
+    }
 }

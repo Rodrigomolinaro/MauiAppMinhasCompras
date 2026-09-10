@@ -1,4 +1,5 @@
 using MauiAppMinhasCompras.Models;
+using System;
 
 namespace MauiAppMinhasCompras.Views;
 
@@ -18,8 +19,8 @@ public partial class NovoProduto : ContentPage
 				Descricao = txt_descricao.Text,
 				Quantidade = Convert.ToDouble(txt_quantidade.Text),
 				Preco = Convert.ToDouble(txt_preco.Text),
-                Categoria = pckCategoria.SelectedItem?.ToString() ?? "Outros" // Captura a categoria
-
+                Categoria = pckCategoria.SelectedItem?.ToString() ?? "Outros", // <- vírgula adicionada aqui
+                DataCadastro = dtpDataCompra.Date ?? DateTime.Now
             };
 
 			await App.Db.Insert(p);

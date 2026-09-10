@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiAppMinhasCompras.Views.Relatorio"
+             Title="Relatório de Período">
+
+    <Grid RowDefinitions="Auto, *" Padding="10">
+
+        <!-- Área de Filtro -->
+        <HorizontalStackLayout Grid.Row="0" Spacing="10" Margin="0,0,0,15" VerticalOptions="Center">
+            <VerticalStackLayout>
+                <Label Text="De:" FontSize="12" FontAttributes="Bold"/>
+                <DatePicker x:Name="dtpDataInicial" Format="dd/MM/yyyy" WidthRequest="110"/>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout>
+                <Label Text="Até:" FontSize="12" FontAttributes="Bold"/>
+                <DatePicker x:Name="dtpDataFinal" Format="dd/MM/yyyy" WidthRequest="110"/>
+            </VerticalStackLayout>
+
+            <Button Text="Buscar" Clicked="btnBuscar_Clicked" VerticalOptions="End" />
+        </HorizontalStackLayout>
+
+        <!-- Lista de Resultados -->
+        <ListView x:Name="lst_relatorio" Grid.Row="1">
+            <ListView.Header>
+                <Grid ColumnDefinitions="120, 80, 80" BackgroundColor="{StaticResource Gray100}" Padding="5">
+                    <Label Grid.Column="0" Text="Produto" FontAttributes="Bold" />
+                    <Label Grid.Column="1" Text="Data" FontAttributes="Bold" />
+                    <Label Grid.Column="2" Text="Total" FontAttributes="Bold" />
+                </Grid>
+            </ListView.Header>
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid ColumnDefinitions="120, 80, 80" Padding="5">
+                            <Label Grid.Column="0" Text="{Binding Descricao}" />
+                            <Label Grid.Column="1" Text="{Binding DataCadastro, StringFormat='{0:dd/MM/yy}'}" />
+                            <Label Grid.Column="2" Text="{Binding Preco, StringFormat='{0:C}'}" />
+                            <!-- Ajuste para 'Total' se você tiver essa propriedade -->
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</ContentPage>

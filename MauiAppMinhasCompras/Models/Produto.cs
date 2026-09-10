@@ -27,6 +27,8 @@ namespace MauiAppMinhasCompras.Models
 
         public string Categoria { get; set; }
 
+        public DateTime DataCadastro { get; set; }
+
         public double Total { get => Quantidade * Preco; }
     }
 }
